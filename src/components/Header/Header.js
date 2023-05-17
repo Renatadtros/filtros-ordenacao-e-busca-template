@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "./styles";
 
-const Header = ({ buscaId, buscaName, onChangeBuscaId, onChangeBuscaName }) => {
+const Header = ({ buscaId, onChangeBuscaId, buscaName, onChangeBuscaName, buscaType, onChangeBuscaType, orderFilter, onChangeOrderFilter  }) => {
   const pokemontypesArray = [
     "Normal",
     "Fire",
@@ -38,13 +38,14 @@ const Header = ({ buscaId, buscaName, onChangeBuscaId, onChangeBuscaName }) => {
       onChange={onChangeBuscaName} 
       />
 
-      <select>
+
+      <select value={orderFilter} onChange={onChangeOrderFilter} >
         <option value="">Ordenar</option>
-        <option value="">Crescente</option>
-        <option value="">Decrescente</option>
+        <option value="c">Crescente</option>
+        <option value="d">Decrescente</option>
       </select>
 
-      <select name="tipo" id="tipo">
+      <select name="tipo" id="tipo" value={buscaType} onChange={onChangeBuscaType}>
         <option value="">Selecione um tipo</option>
         {pokemontypesArray.map((type) => {
           return (

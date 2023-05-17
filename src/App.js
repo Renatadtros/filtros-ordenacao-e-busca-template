@@ -21,6 +21,8 @@ const CardsContainer = styled.div`
 function App() {
   const [buscaId, setBuscaId] = useState("");
   const [buscaName, setBuscaName] = useState (""); //.
+  const [buscaType, setBuscaType] = useState("");
+  const [orderFilter, setOrderFilter] = useState("");
 
   const onChangeBuscaId = (event) => {
     setBuscaId(event.target.value);
@@ -30,12 +32,22 @@ function App() {
     setBuscaName(event.target.value);
   };
 
+  const onChangeBuscaType = (event) => {
+    setBuscaType(event.target.value);
+  };
+
+  const onChangeOrderFilter = (event) => {
+    setOrderFilter(event.target.value);
+  };
+
   return (
     <>
       <GlobalStyle />
 
       <Header buscaId={buscaId} onChangeBuscaId={onChangeBuscaId}
-      buscaName={buscaName} onChangeBuscaName={onChangeBuscaName} 
+      buscaName={buscaName} onChangeBuscaName={onChangeBuscaName}
+      buscaType={buscaType} onChangeBuscaType={onChangeBuscaType} 
+      orderFilter={orderFilter} onChangeOrderFilter={onChangeOrderFilter}
       />
 
       <CardsContainer>
@@ -53,6 +65,23 @@ function App() {
               return pokemon;
             } else if (!buscaName) {
               return pokemon;
+            }
+          })
+
+          .filter((pokemon) => {
+            if (buscaType && pokemon.type.includes(buscaType)) {//trasnforma a string em numerico
+              return pokemon;
+            } else if (!buscaType) {
+              return pokemon;
+            }
+          })
+
+          .sort((a, b) => {
+            console.log(orderFilter);
+            if (orderFilter === "c") {
+              return a.name.english >= b.name.english ? 1 : -1;
+            } else if (orderFilter === "d") {
+              return a.name.english <= b.name.english ? 1 : -1;
             }
           })
 
